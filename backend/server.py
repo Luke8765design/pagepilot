@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
 import emailer
 import gcal
+import sms
 
 logger = logging.getLogger(__name__)
 ADMIN_PASSCODE = os.environ.get('ADMIN_PASSCODE', '')
@@ -113,6 +114,15 @@ async def _get_calendar_settings():
 
 async def _post_booking_actions(booking: Booking):
     when = _pretty_when(booking.date, booking.time)
+    # SMS to owner(s)
+    try:
+        await asyncio.to_thread(
+            sms.send_owner_sms,
+            f"📅 New Page Pilot booking: {booking.name} ({booking.business}) on {when}. "
+            f"Service: {booking.service or 'TBD'}. Email: {booking.email}",
+        )
+    except Exception as e:
+        logger.error(f"booking sms failed: {e}")
     # Emails (visitor + owners)
     try:
         await emailer.send_email(
@@ -197,6 +207,13 @@ async def create_lead(payload: LeadCreate):
     doc['created_at'] = doc['created_at'].isoformat()
     await db.leads.insert_one(doc)
     logger.info(f"New chat lead: {lead.email}")
+    try:
+        await asyncio.to_thread(
+            sms.send_owner_sms,
+            f"💬 New Page Pilot chat lead: {lead.name} ({lead.email}). {lead.note or ''}".strip(),
+        )
+    except Exception as e:
+        logger.error(f"lead sms failed: {e}")
     owner_html = emailer.lead_owner_html(lead.name, lead.email, lead.note)
     for owner in emailer.OWNER_EMAILS:
         try:
