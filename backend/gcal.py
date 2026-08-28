@@ -19,21 +19,18 @@ def is_configured() -> bool:
 
 
 def build_auth_url(state: str) -> str:
-    from google_auth_oauthlib.flow import Flow
-    flow = Flow.from_client_config(
-        {"web": {
-            "client_id": CLIENT_ID,
-            "client_secret": CLIENT_SECRET,
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "redirect_uris": [REDIRECT_URI],
-        }},
-        scopes=SCOPES,
-        redirect_uri=REDIRECT_URI,
-    )
-    url, _ = flow.authorization_url(access_type="offline", prompt="consent",
-                                    include_granted_scopes="true", state=state)
-    return url
+    from urllib.parse import urlencode
+    params = {
+        "client_id": CLIENT_ID,
+        "redirect_uri": REDIRECT_URI,
+        "response_type": "code",
+        "scope": " ".join(SCOPES),
+        "access_type": "offline",
+        "prompt": "consent",
+        "include_granted_scopes": "true",
+        "state": state,
+    }
+    return "https://accounts.google.com/o/oauth2/auth?" + urlencode(params)
 
 
 def exchange_code(code: str) -> dict:
