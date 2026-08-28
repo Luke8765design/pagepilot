@@ -249,6 +249,7 @@ async def calendar_callback(code: str = "", state: str = "", error: str = ""):
         result = await asyncio.to_thread(gcal.exchange_code, code)
         tokens = result["tokens"]
         if not tokens.get("access_token"):
+            logger.error(f"calendar token exchange returned no access_token: { {k: v for k, v in tokens.items() if k != 'access_token'} }")
             return RedirectResponse(f"{dest}?calendar=error")
         await db.settings.update_one(
             {"_id": "google_calendar"},
