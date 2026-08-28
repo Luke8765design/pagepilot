@@ -1,0 +1,167 @@
+{
+  "theme": "light",
+  "design_philosophy": {
+    "vibe": "Apple meets Linear, but styled for a high-end luxury digital agency. A blend of ultra-clean precision and expensive, trustworthy aesthetics.",
+    "core_principles": [
+      "Generous negative space (2-3x standard padding).",
+      "Motion is deliberate: smooth momentum scrolling (Lenis) and line-by-line kinetic typography.",
+      "High-contrast hierarchy: massive headings, subtle borders, focused accents.",
+      "No generic blobs or gradients; use structural grids, crisp edges, and optical alignment."
+    ]
+  },
+  "colors": {
+    "primary": {
+      "white": "#FFFFFF",
+      "background": "#FAFAFA",
+      "black": "#0A0A0A"
+    },
+    "accent": {
+      "gold": "#D4AF37",
+      "gold_light": "#F9E596",
+      "gold_dark": "#AA8A29",
+      "pilot_blue": "#007AFF" 
+    },
+    "text": {
+      "heading": "#0A0A0A",
+      "body": "#4A4A4A",
+      "muted": "#737373"
+    },
+    "surface": {
+      "card": "#FFFFFF",
+      "card_hover": "#FDFDFD",
+      "border": "rgba(0,0,0,0.06)",
+      "gold_border": "rgba(212,175,55,0.3)"
+    }
+  },
+  "typography": {
+    "font_imports": [
+      "@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400,900&f[]=satoshi@900,700,500,400,300&display=swap');"
+    ],
+    "headings": {
+      "family": "'Cabinet Grotesk', sans-serif",
+      "weight": "font-bold to font-black",
+      "tracking": "tracking-tight",
+      "usage": "H1, H2, H3, large manifesto numbers."
+    },
+    "body": {
+      "family": "'Satoshi', sans-serif",
+      "weight": "font-normal to font-medium",
+      "tracking": "tracking-normal",
+      "usage": "Paragraphs, labels, small text."
+    },
+    "scales": {
+      "h1": "text-5xl md:text-6xl lg:text-[5rem] leading-[1.05]",
+      "h2": "text-4xl md:text-5xl leading-tight",
+      "h3": "text-2xl md:text-3xl leading-snug",
+      "body": "text-base md:text-lg text-[#4A4A4A]"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "section_padding": "py-24 md:py-32",
+    "gap": "gap-8 md:gap-12",
+    "grid_bento": "grid cols-1 md:grid-cols-12 gap-6"
+  },
+  "motion": {
+    "scroll": "MUST use Lenis for smooth momentum scrolling globally.",
+    "hero_reveal": "Framer Motion: masked line-by-line reveal for H1. Staggered fade up for subtitle and CTAs.",
+    "hover_effects": "Cards slightly lift (-translate-y-1) with an enhanced shadow and border color shift to gold-light. Buttons scale up slightly (scale-105).",
+    "scroll_reveal": "Framer Motion 'whileInView': opacity 0 to 1, y: 20 to 0. Use viewport={{ once: true, margin: '-100px' }}."
+  },
+  "component_styling": {
+    "buttons": {
+      "primary": "bg-[#D4AF37] text-white font-medium px-8 py-4 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:shadow-[0_6px_25px_rgba(212,175,55,0.5)] hover:-translate-y-0.5 transition-all duration-300",
+      "secondary": "bg-white text-[#0A0A0A] font-medium px-8 py-4 rounded-full border border-black/10 hover:border-[#D4AF37] transition-all duration-300"
+    },
+    "cards": {
+      "default": "bg-white border border-black/5 rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-500",
+      "glass": "bg-white/70 backdrop-blur-2xl border border-white/40"
+    },
+    "inputs": {
+      "default": "bg-[#FAFAFA] border border-black/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 focus:border-[#D4AF37] transition-all"
+    }
+  },
+  "section_blueprint": {
+    "Header": {
+      "layout": "Fixed top, w-full, z-50. Glassmorphism (bg-white/80 backdrop-blur-xl). Border-b border-black/5.",
+      "elements": "Logo (Text 'Page Pilot' with blue plane/D+P mark accent), Nav Links (Hover text-gold), Book a Call button (Primary)."
+    },
+    "Hero": {
+      "layout": "Min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-20",
+      "elements": "Kinetic H1 'AI That Works While You Sleep.', Subheading max-w-2xl text-center, Primary & Secondary CTAs. Visual: Subtle parallax abstract geometric/gold shape in background or floating elements.",
+      "alignment": "Center-aligned for massive impact."
+    },
+    "Marquee": {
+      "layout": "w-full overflow-hidden py-12 border-y border-black/5 bg-[#FAFAFA]",
+      "elements": "Slow-moving editorial text (Cabinet Grotesk) separated by gold stars/dots."
+    },
+    "Services": {
+      "layout": "Bento Grid (md:grid-cols-3)",
+      "elements": "3 premium cards (AI Chatbots, AI Receptionists, Website Design). Each has a top icon (Lucide with gold accent), bold title, description. On hover, a subtle gold gradient wash at the card base."
+    },
+    "Why_Choose_Us": {
+      "layout": "Grid md:grid-cols-4 gap-6",
+      "elements": "8 minimal icon cards. White bg, soft borders. Very clean, focusing on trust and value."
+    },
+    "How_It_Works": {
+      "layout": "Vertical timeline or 4-column steps",
+      "elements": "Large numbers (e.g., '01', '02') in very light gray (text-black/5) acting as background. Step title in bold. Connector lines animating on scroll."
+    },
+    "About_Manifesto": {
+      "layout": "Editorial layout, generous left padding, massive typography.",
+      "elements": "Numbered manifesto format ('1. We Believe...', '2. The Standard...'). Spotlight effect on hover or real photography clipped into architectural arches/rectangles."
+    },
+    "FAQ": {
+      "layout": "Max-w-3xl mx-auto",
+      "elements": "Shadcn Accordion customized to look expensive: no background, just 1px bottom borders, large typography, plus/minus icon animating in gold."
+    },
+    "Contact_CTA": {
+      "layout": "Large rounded-3xl container bg-[#0A0A0A] text-white text-center py-24 relative overflow-hidden",
+      "elements": "Headline 'Ready to Grow Your Business?', Gold Book a Call button. Subtle gold noise/glow in the background."
+    },
+    "Footer": {
+      "layout": "Clean, multi-column. border-t border-black/10 py-16",
+      "elements": "Logo, Links, Socials, Copyright."
+    }
+  },
+  "media": {
+    "icons": {
+      "library": "lucide-react",
+      "styling": "stroke-[1.5] text-[#0A0A0A] with subtle gold background circles or accents."
+    },
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1761156254622-7b66649b1f69?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA0MTJ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwd2hpdGUlMjBhbmQlMjBnb2xkJTIwYWJzdHJhY3R8ZW58MHx8fHwxNzg3OTA5MTk0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract white and gold geometric shapes (Use as Hero background parallax element or About section visual)"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1753351052363-53ce102830eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsb2NhbCUyMGJ1c2luZXNzJTIwb3duZXIlMjBjb2ZmZWUlMjBzaG9wfGVufDB8fHx8MTc4NzkwOTE5NHww&ixlib=rb-4.1.0&q=85",
+        "description": "Smiling female coffee shop owner (Use in Services or About section to represent local business client)"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1526887593587-a307ea5d46b4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBlbGVnYW50JTIwb2ZmaWNlJTIwaW50ZXJpb3IlMjB3aGl0ZXxlbnwwfHx8fDE3ODc5MDkxOTR8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Minimalist white professional office desk (Use in Website Design service card or Contact section)"
+      }
+    ]
+  },
+  "instructions_to_main_agent": {
+    "setup": [
+      "Install framer-motion, @studio-freight/react-lenis (or lenis), lucide-react.",
+      "Add the font imports to index.css and update tailwind.config.js to use 'Cabinet Grotesk' and 'Satoshi'.",
+      "Use Shadcn UI for standard accessible components (Accordion, Dialog for Contact Form), but strip away the default Vercel-look borders and apply the luxury styling."
+    ],
+    "execution": [
+      "Implement the Lenis smooth scrolling wrapper at the root level.",
+      "Ensure the kinetic text reveal in the Hero uses actual Framer Motion line-by-line variants (split text into lines).",
+      "Do NOT use pure #000000 for text, use the specified #0A0A0A.",
+      "For the contact form, use a Dialog/Modal when clicking 'Book a Call' OR scroll to a dedicated contact section with a form.",
+      "Add `data-testid` to all buttons, form inputs, and accordion triggers."
+    ],
+    "universal_guidelines": [
+      "Do not center align the app container. No generic blobs.",
+      "Use glass-morphism carefully: bg-white/70 with backdrop-blur-xl and a 1px border is mandatory for readable overlays.",
+      "Avoid universal transitions (no 'transition-all' without duration). Always specify what transitions, e.g., 'transition-colors duration-300'.",
+      "Ensure contrast ratios are met. Gold text on white background might fail APCA; use gold as an accent, background for buttons, or large thick text."
+    ]
+  }
+}
