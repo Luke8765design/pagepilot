@@ -50,6 +50,8 @@ class Booking(BaseModel):
     email: EmailStr
     business: str
     service: Optional[str] = None
+    date: str
+    time: str
     message: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -59,6 +61,8 @@ class BookingCreate(BaseModel):
     email: EmailStr
     business: str = Field(..., min_length=1, max_length=200)
     service: Optional[str] = Field(None, max_length=80)
+    date: str = Field(..., min_length=8, max_length=10)
+    time: str = Field(..., min_length=4, max_length=5)
     message: Optional[str] = Field(None, max_length=2000)
 
 
@@ -67,13 +71,22 @@ async def root():
     return {"message": "Page Pilot API"}
 
 
+@api_router.get("/bookings/slots")
+async def booked_slots(date: str):
+    docs = await db.bookings.find({"date": date}, {"_id": 0, "time": 1}).to_list(1000)
+    return {"date": date, "taken": [d["time"] for d in docs if d.get("time")]}
+
+
 @api_router.post("/bookings", response_model=Booking)
 async def create_booking(payload: BookingCreate):
+    existing = await db.bookings.find_one({"date": payload.date, "time": payload.time})
+    if existing:
+        raise HTTPException(status_code=409, detail="That time slot has just been taken. Please choose another.")
     booking = Booking(**payload.model_dump())
     doc = booking.model_dump()
     doc['created_at'] = doc['created_at'].isoformat()
     await db.bookings.insert_one(doc)
-    logger.info(f"New booking from {booking.email} ({booking.business})")
+    logger.info(f"New booking from {booking.email} ({booking.business}) on {booking.date} {booking.time}")
     return booking
 
 
