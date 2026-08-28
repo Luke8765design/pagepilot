@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Sparkles, Loader2 } from "lucide-react";
+import { Send, Sparkles, Loader2, UserPlus, X } from "lucide-react";
+import { toast } from "sonner";
 import { useBooking } from "../../context/BookingContext";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -23,6 +24,45 @@ export const ChatConversation = ({ variant = "inline" }) => {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
   const sessionRef = useRef(Math.random().toString(36).slice(2));
+
+  const [leadName, setLeadName] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadDone, setLeadDone] = useState(false);
+  const [leadDismissed, setLeadDismissed] = useState(false);
+  const [leadSending, setLeadSending] = useState(false);
+
+  const userCount = messages.filter((m) => m.role === "user").length;
+  const showLead = userCount >= 2 && !leadDone && !leadDismissed && !loading;
+
+  const submitLead = async () => {
+    if (!leadName.trim() || !leadEmail.trim()) {
+      toast.error("Please add your name and email.");
+      return;
+    }
+    setLeadSending(true);
+    try {
+      const lastUser = [...messages].reverse().find((m) => m.role === "user");
+      await fetch(`${API}/leads`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName.trim(),
+          email: leadEmail.trim(),
+          note: lastUser ? `Asked: ${lastUser.content}` : "From live chat",
+        }),
+      });
+      setLeadDone(true);
+      toast.success("Thanks! We'll be in touch shortly.");
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: `Brilliant, thanks ${leadName.trim().split(" ")[0]}! I've passed your details to the team — we'll reach out soon. Want to lock in a time now? Just hit "Book a free call" below.` },
+      ]);
+    } catch {
+      toast.error("Couldn't save that — please try again.");
+    } finally {
+      setLeadSending(false);
+    }
+  };
 
   const scrollToBottom = () => {
     const el = scrollRef.current;
@@ -139,6 +179,52 @@ export const ChatConversation = ({ variant = "inline" }) => {
           ))}
         </div>
       )}
+
+      <AnimatePresence>
+        {showLead && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-gold/20 bg-[#FDFBF4] px-5 py-4"
+            data-testid="chat-lead-capture"
+          >
+            <div className="mb-2.5 flex items-center justify-between">
+              <p className="flex items-center gap-1.5 text-xs font-semibold text-ink">
+                <UserPlus size={14} className="text-gold-dark" /> Want us to follow up?
+              </p>
+              <button onClick={() => setLeadDismissed(true)} className="text-ink/40 hover:text-ink" data-testid="chat-lead-dismiss" aria-label="Dismiss">
+                <X size={14} />
+              </button>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <input
+                value={leadName}
+                onChange={(e) => setLeadName(e.target.value)}
+                placeholder="Your name"
+                className="flex-1 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-gold"
+                data-testid="chat-lead-name"
+              />
+              <input
+                type="email"
+                value={leadEmail}
+                onChange={(e) => setLeadEmail(e.target.value)}
+                placeholder="Email"
+                className="flex-1 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-gold"
+                data-testid="chat-lead-email"
+              />
+              <button
+                onClick={submitLead}
+                disabled={leadSending}
+                className="rounded-lg bg-gold px-4 py-2 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
+                data-testid="chat-lead-submit"
+              >
+                {leadSending ? <Loader2 size={15} className="animate-spin" /> : "Send"}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="flex items-center gap-2 border-t border-black/5 px-4 py-3">
         <input

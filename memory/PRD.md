@@ -18,16 +18,19 @@ Build a premium, award-worthy marketing website for "Page Pilot", a digital agen
 
 ## Implemented (2026-06)
 - Full one-page site with all required sections, responsive + mobile nav
-- Kinetic line-by-line hero reveal, parallax shapes, lenis smooth scroll, scroll-reveal animations
-- Booking dialog → POST /api/bookings → MongoDB, success state + toast (verified via curl + UI)
-- SEO meta (title, description, OG, robots), semantic sections, data-testids throughout
-- Email notifications intentionally SKIPPED per user choice (bookings stored in DB only)
+- Kinetic hero, parallax, lenis smooth scroll, scroll reveals
+- Calendar booking (date + time slot, past/Sundays disabled, taken slots greyed, 409 double-book guard) → MongoDB
+- Live AI chatbot (GPT-5.4 Mini via Emergent key, streaming) — inline demo + floating widget
+- Chat lead capture (name/email mid-conversation) → /api/leads + owner email alerts
+- Email confirmations (Emergent-managed Resend): visitor confirmation + owner alerts to lukegray8765@gmail.com & pagepilot19@gmail.com
+- New sections: StatsBand (count-up), IndustriesStrip, WebsiteShowcase (before/after image), ResultsSection (dark), Pricing (Starter/Growth/Complete, placeholder £X)
+- Admin inbox at /admin (single passcode `pilot-2026-gold`): bookings + chat leads tables + Google Calendar connect card
+- Google Calendar OAuth code fully implemented (server routes + admin connect) — INACTIVE until GOOGLE_CLIENT_ID/SECRET provided
 
 ## Backlog / Remaining
-- P1: Admin view to review submitted bookings
-- P2: Email/Calendly integration for bookings
-- P2: Testimonials / logos / case studies section
-- P2: Blog or resources for SEO
+- P0: Add GOOGLE_CLIENT_ID/SECRET to activate calendar sync
+- P1: Testimonials (deferred by user)
+- P2: Real pricing numbers; edit contact details
 
 ## Next Tasks
 - Optional admin dashboard for bookings; testimonials section; real contact details.
