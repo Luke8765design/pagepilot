@@ -71,9 +71,9 @@ export const Footer = () => {
           <div>
             <h4 className="font-display text-sm font-bold uppercase tracking-wider text-ink">Contact</h4>
             <ul className="mt-5 space-y-3 text-sm text-ink/55">
-              <li className="flex items-center gap-2"><Mail size={15} className="text-gold-dark" /> hello@pagepilot.com</li>
-              <li className="flex items-center gap-2"><Phone size={15} className="text-gold-dark" /> +44 000 000 000</li>
-              <li className="flex items-center gap-2"><MapPin size={15} className="text-gold-dark" /> United Kingdom</li>
+              <li className="flex items-center gap-2"><Mail size={15} className="text-gold-dark" /> <a href="mailto:pagepilot19@gmail.com" className="transition-colors hover:text-ink">pagepilot19@gmail.com</a></li>
+              <li className="flex items-center gap-2"><Phone size={15} className="text-gold-dark" /> <a href="tel:+447419581132" className="transition-colors hover:text-ink">+44 7419 581132</a></li>
+              <li className="flex items-center gap-2"><MapPin size={15} className="text-gold-dark" /> Glasgow, UK</li>
             </ul>
           </div>
         </div>
