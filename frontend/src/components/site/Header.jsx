@@ -48,7 +48,7 @@ export const Header = () => {
         >
           <img src="/pilot-logo.png" alt="Page Pilot" className="h-9 w-9 rounded-lg object-cover" />
           <span className="font-display text-xl font-extrabold tracking-tight text-ink">
-            Page<span className="text-gold-dark"> Pilot</span>
+            Page<span className="text-ink"> Pilot</span>
           </span>
         </button>
 

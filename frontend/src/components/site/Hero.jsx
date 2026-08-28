@@ -79,7 +79,7 @@ export const Hero = () => {
                 <motion.span variants={lineVariant} className="inline-block">
                   {i === 1 ? (
                     <span>
-                      While You <span className="gold-text-gradient">Sleep.</span>
+                      While You <span className="text-ink">Sleep.</span>
                     </span>
                   ) : (
                     line

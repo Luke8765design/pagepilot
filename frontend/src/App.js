@@ -7,6 +7,7 @@ import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Marquee } from "@/components/site/Marquee";
 import { Services } from "@/components/site/Services";
+import { ChatDemo } from "@/components/site/ChatDemo";
 import { WhyChooseUs } from "@/components/site/WhyChooseUs";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { About } from "@/components/site/About";
@@ -14,6 +15,7 @@ import { FAQ } from "@/components/site/FAQ";
 import { ContactCTA } from "@/components/site/ContactCTA";
 import { Footer } from "@/components/site/Footer";
 import { BookCallDialog } from "@/components/site/BookCallDialog";
+import { ChatWidget } from "@/components/site/ChatWidget";
 
 function App() {
   useEffect(() => {
@@ -42,6 +44,7 @@ function App() {
           <Hero />
           <Marquee />
           <Services />
+          <ChatDemo />
           <WhyChooseUs />
           <HowItWorks />
           <About />
@@ -50,7 +53,8 @@ function App() {
         </main>
         <Footer />
         <BookCallDialog />
-        <Toaster position="bottom-right" richColors />
+        <ChatWidget />
+        <Toaster position="top-center" richColors />
       </BookingProvider>
     </div>
   );
